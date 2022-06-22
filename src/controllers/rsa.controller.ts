@@ -29,7 +29,7 @@ export const keys = async (req: Request, res: Response<PublicKey>) => {
     const pubE = bc.bigintToHex(publicE)
     const pubN = bc.bigintToHex(publicN)
 
-    console.log(publicN)
+    //console.log(publicN)
 
     return res.json({
         e: pubE,
@@ -41,7 +41,7 @@ export const decrypt = async (req: Request<{}, {}, RsaRequest, {}>, res: Respons
     //console.log(req.body.message)
     const mensaje = bc.hexToBigint(req.body.message)
     const decypher = (await keypairPromise).privateKey.decrypt(mensaje)
-    //console.log(bc.bigintToText(decypher))
+    console.log(bc.bigintToText(decypher))
     return res.json({
         message: bc.bigintToHex(decypher) 
     })
@@ -80,9 +80,9 @@ export const encrypt = async (req: Request<{}, {}, EncryptVerifyRequest, {}>, re
      //console.log(req.body.message)
      //console.log(bc.hexToBigint(req.body.pubKey.n))
      const publicKey = new rsa.PublicKey(bc.hexToBigint(req.body.pubKey.e), bc.hexToBigint(req.body.pubKey.n))
-     console.log(publicKey.n)
+     //console.log(publicKey.n)
      const verif = publicKey.verify(sign)
-     console.log(bc.bigintToHex(verif)) 
+     console.log(bc.bigintToText(verif)) 
      return res.json({
          message: bc.bigintToHex(verif)
      })
